@@ -35,6 +35,7 @@ using Owin;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace GroupManager
 {
@@ -93,7 +94,13 @@ namespace GroupManager
             IConfidentialClientApplication confidentialClient = MsalAppBuilder.BuildConfidentialClientApplication(new ClaimsPrincipal(context.AuthenticationTicket.Identity));
 
             // Upon successful sign in, get & cache a token using MSAL
-            AuthenticationResult result = await confidentialClient.AcquireTokenByAuthorizationCode(new[] { "user.readbasic.all" }, context.Code).ExecuteAsync();
+            //AuthenticationResult result = await confidentialClient.AcquireTokenByAuthorizationCode(new[] { "user.readbasic.all" }, context.Code).ExecuteAsync();
+            string[] scopes = Globals.BasicSignInScopes.Split(new char[] { ' ' });
+            AuthenticationResult result = await confidentialClient.AcquireTokenByAuthorizationCode(scopes, context.Code).ExecuteAsync();
+
+            Debug.WriteLine("start AccessToken ---");
+            Debug.WriteLine(result.AccessToken);
+            Debug.WriteLine("end AccessToken ---");
         }
 
         private Task OnSecurityTokenValidated(SecurityTokenValidatedNotification<OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> context)
@@ -101,10 +108,11 @@ namespace GroupManager
             // Verify the user signing in is a business user, not a consumer user.
             string[] issuer = context.AuthenticationTicket.Identity.FindFirst(Globals.IssuerClaim).Value.Split('/');
             string tenantId = issuer[(issuer.Length - 2)];
-            if (tenantId == Globals.ConsumerTenantId)
-            {
-                throw new SecurityTokenValidationException("Consumer accounts are not supported for the Group Manager App.  Please log in with your work account.");
-            }
+
+            //if (tenantId == Globals.ConsumerTenantId)
+            //{
+            //    throw new SecurityTokenValidationException("Consumer accounts are not supported for the Group Manager App.  Please log in with your work account.");
+            //}
 
             return Task.FromResult(0);
         }
