@@ -91,9 +91,8 @@ namespace GroupManager.Controllers
 
 			try
 			{
-				string[] scopes = Globals.BasicSignInScopes.Split(new char[] { ' ' });
-				//string[] scopes = new string[] { "https://graph.microsoft.com/.default" };
-				string[] scopesSec = new string[] { "https://graph.microsoft.com/.default" };
+				//string[] scopes = Globals.BasicSignInScopes.Split(new char[] { ' ' });
+				string[] scopes = new string[] { "https://graph.microsoft.com/.default" };
 
 				// Get a token for our admin-restricted set of scopes Microsoft Graph
 				string accessToken = await GetGraphAccessToken(scopes);
@@ -102,8 +101,9 @@ namespace GroupManager.Controllers
 				var me = await this.GetMe(accessToken);
 				var secCenter = await this.GetMe(accessToken, "https://management.azure.com/subscriptions/33fb38df-688e-4ca1-8dd8-b46e26262ff8/providers/Microsoft.Security/secureScores?api-version=2020-01-01-preview");
 
-				string SecToken = await GetGraphAccessToken(scopesSec);
-				var secCenter2 = await this.GetMe(SecToken, "https://management.azure.com/subscriptions/8d044d64-3e1a-4c50-8125-7e8762a074ab/providers/Microsoft.Security/secureScores?api-version=2020-01-01-preview");
+				//string[] scopesSec = new string[] { "https://management.azure.com//.default" };
+				//string SecToken = await GetGraphAccessToken(scopesSec);
+				//var secCenter2 = await this.GetMe(SecToken, "https://management.azure.com/subscriptions/8d044d64-3e1a-4c50-8125-7e8762a074ab/providers/Microsoft.Security/secureScores?api-version=2020-01-01-preview");
 				
 				var score = await this.GetScore(accessToken);
 				var alers = await this.GetAlerts(accessToken, "?$top=1");
