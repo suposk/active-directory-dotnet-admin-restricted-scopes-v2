@@ -99,6 +99,9 @@ namespace GroupManager.Controllers
 				ViewBag.AccessToken = accessToken;
 
 				var me = await this.GetMe(accessToken);
+				var url = "https://management.azure.com/subscriptions/8d044d64-3e1a-4c50-8125-7e8762a074ab/providers/Microsoft.Security/alerts?api-version=2019-01-01";		  
+				var aleSecApi = await this.GetMe(accessToken, url);
+
 				//var secCenter = await this.GetMe(accessToken, "https://management.azure.com/subscriptions/33fb38df-688e-4ca1-8dd8-b46e26262ff8/providers/Microsoft.Security/secureScores?api-version=2020-01-01-preview");
 				var secCenter = await this.GetMe(accessToken, "https://management.azure.com/subscriptions/8d044d64-3e1a-4c50-8125-7e8762a074ab/providers/Microsoft.Security/secureScores?api-version=2020-01-01-preview");
 
