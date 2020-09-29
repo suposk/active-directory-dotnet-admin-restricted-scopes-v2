@@ -55,6 +55,11 @@ namespace GroupManager
                     RedirectUri = Globals.RedirectUri,
                     PostLogoutRedirectUri = Globals.RedirectUri,
                     Scope = Globals.BasicSignInScopes, // a basic set of permissions for user sign in & profile access
+
+                    ResponseType = OpenIdConnectResponseType.CodeIdToken, //yes  or nothing line
+                    //ResponseType = OpenIdConnectResponseType.Code, //no
+                    //ResponseType = OpenIdConnectResponseType.IdToken, //no
+
                     TokenValidationParameters = new TokenValidationParameters
                     {
                         // In a real application you would use ValidateIssuer = true for additional checks and security.
