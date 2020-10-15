@@ -71,10 +71,11 @@ namespace GroupManager.Controllers
 		{
 			IConfidentialClientApplication cc = MsalAppBuilder.BuildConfidentialClientApplication();
 			var userAccount = await cc.GetAccountAsync(ClaimsPrincipal.Current.GetMsalAccountId());
-			
+
 			//AuthenticationResult result = await cc.AcquireTokenSilent(new string[] { "user.readbasic.all" }, userAccount).ExecuteAsync();
-			
-			string[] scopes = Globals.BasicSignInScopes.Split(new char[] { ' ' });
+
+			//string[] scopes = Globals.BasicSignInScopes.Split(new char[] { ' ' });
+			string[] scopes = new string[] { "https://graph.microsoft.com/.default" };
 			AuthenticationResult result = await cc.AcquireTokenSilent(scopes, userAccount).ExecuteAsync();
 
 			return result.AccessToken;

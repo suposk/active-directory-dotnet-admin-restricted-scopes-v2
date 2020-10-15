@@ -15,8 +15,9 @@ namespace GroupManager.Utils
         public const string MicrosoftGraphUsersApi = "https://graph.microsoft.com/v1.0/users";
         public const string AdminConsentFormat = "https://login.microsoftonline.com/{0}/adminconsent?client_id={1}&state={2}&redirect_uri={3}";
         //public const string BasicSignInScopes = "openid profile email offline_access user.readbasic.all";
-        public const string BasicSignInScopes = "openid profile offline_access user.read";        
-        public const string NameClaimType = "name";
+        public const string BasicSignInScopes = "openid profile offline_access user.read";        //works
+        //public const string BasicSignInScopes = "openid profile offline_access user.read https://management.azure.com/";        //no
+                public const string NameClaimType = "name";
 
         /// <summary>
         /// The Client ID is used by the application to uniquely identify itself to Azure AD.
