@@ -181,10 +181,11 @@ namespace GroupManager.Controllers
 			return View();
 		}
 
+		[Authorize]
 		public async Task<ActionResult> ServiceManagement()
 		{
 			string tenantId = ClaimsPrincipal.Current.FindFirst(Globals.TenantIdClaimType).Value;
-
+			var model = new ServiceManagementModel();
 			try
 			{
 
@@ -192,7 +193,9 @@ namespace GroupManager.Controllers
 				string accessToken = await GetAccessToken(scopes);
 				ViewBag.AccessToken = accessToken;
 				var secCenter2 = await this.GetRes(accessToken, "https://management.azure.com/subscriptions/8d044d64-3e1a-4c50-8125-7e8762a074ab/providers/Microsoft.Security/secureScores?api-version=2020-01-01-preview");
-				ViewBag.AccessToken = accessToken;
+
+				model.AccessToken = accessToken;
+				model.Score = secCenter2;
 			}
 			catch (MsalUiRequiredException ex)
 			{
@@ -222,7 +225,7 @@ namespace GroupManager.Controllers
 			}
 
 			ViewBag.TenantId = tenantId;
-			return View();
+			return View(model);
 		}
 
 		/// <summary>

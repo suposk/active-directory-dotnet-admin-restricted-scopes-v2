@@ -1,19 +1,24 @@
-﻿
+﻿@model GroupManager.Models.ServiceManagementModel
+
 @{
-    ViewBag.Title = "Secure API";
+    ViewBag.Title = "Service Management";
 }
 
 <center>
-    <h1>Secure API</h1>
-    <hr />
 
-    <p>
-        AccessToken:@ViewBag.AccessToken
-    </p>
-    <p>
+    <div>
+        <h1>ServiceManagement</h1>
+        <hr />
 
-    </p>
-    <p class="text-danger">@ViewBag.Error</p>
+
+        @*<div>
+            AccessToken @Model.AccessToken
+        </div>*@
+        <div>
+            Score @Model.Score
+        </div>
+        <p class="text-danger">@ViewBag.Error</p>
+    </div>
 </center>
 
 
