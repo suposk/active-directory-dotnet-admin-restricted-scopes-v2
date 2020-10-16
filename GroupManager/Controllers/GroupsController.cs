@@ -192,7 +192,7 @@ namespace GroupManager.Controllers
 				string[] scopes = new string[] { "https://management.azure.com/.default" };
 				string accessToken = await GetAccessToken(scopes);
 				ViewBag.AccessToken = accessToken;
-				var secCenter2 = await this.GetRes(accessToken, "https://management.azure.com/subscriptions/8d044d64-3e1a-4c50-8125-7e8762a074ab/providers/Microsoft.Security/secureScores?api-version=2020-01-01-preview");
+				var secCenter2 = await this.GetResource(accessToken, "https://management.azure.com/subscriptions/8d044d64-3e1a-4c50-8125-7e8762a074ab/providers/Microsoft.Security/secureScores?api-version=2020-01-01-preview");
 
 				model.AccessToken = accessToken;
 				model.Score = secCenter2;
@@ -288,7 +288,7 @@ namespace GroupManager.Controllers
 			}
 		}
 
-		public async Task<string> GetRes(string accessToken, string endpoint = null)
+		public async Task<string> GetResource(string accessToken, string endpoint = null)
 		{
 			try
 			{
@@ -311,7 +311,7 @@ namespace GroupManager.Controllers
 							else
 							{
 								Debug.WriteLine($"Error: {response}");
-								return null;
+								return response.ToString();
 							}
 						}
 					}
